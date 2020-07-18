@@ -17,6 +17,10 @@ const port = process.env.PORT || 4001;
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+
+
+
+
 //Basic GET Routes
 app.get('/contacts', (req, res) => {
     res.json(contacts);
@@ -30,6 +34,10 @@ app.get('/comments', (req, res) => {
 app.get('/products', (req, res) => {
     res.json(products);
 })
+
+
+
+
 
 //Dynamic GET Routes
 app.get('/contacts/:contactId', (req, res) => {
@@ -65,6 +73,10 @@ app.get('/products/:productId', (req, res) => {
     res.json(foundProduct);
 })
 
+
+
+
+
 //POST Routes
 app.post('/contacts', (req, res) => {
     console.log(req.body);
@@ -80,12 +92,38 @@ app.post('/contacts', (req, res) => {
 
 app.post('/vehicles' , (req, res) => {
     const newV = {
+        _id: vehiclesCount + 1,
         ...req.body
     }
     if (!newV._id || !newV.imgUrl || !newV.year || !newV.make || !newV.model || !newV.price || !newV.km || !newV.miles || !newV.fuel || !newV.city || !newV.isNew) {
-        return res.status(400).json({ msg: `Please enter all needed info!`})
+        return res.status(400).json({ msg: `Please enter a imgUrl, year, make, model, price, km, miles, fuel, city, isNew. No spaces.`})
     }
     vehicles.push(newV);
+    res.json(vehicles);
+})
+
+app.post('/comments', (req, res) => {
+    const newComment = {
+        _id: commentsCount + 1,
+        ...req.body
+    }
+    if (!newComment._id || !newComment.body || !newComment.postId) {
+        return res.status(400).json({ msg: `Please include a body and postId.  Make sure entry includes no spaces.`})
+    }
+    comments.push(newComment)
+    res.json(comments);
+})
+
+app.post('/products', (req, res) => {
+    const newProduct = {
+        _id: productsCount + 1,
+        ...req.body
+    }
+    if (!newProduct._id || !newProduct.name || !newProduct.description || !newProduct.rating || !newProduct.imgUrl || !newProduct.price || !newProduct.category || !newProduct.reviews) {
+        return res.status(400).json({ msg: `Please include a name, description, rating, imgUrl, price, category, and a review`})
+    }
+    products.push(newProduct);
+    res.json(products);
 })
 
 
