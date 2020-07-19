@@ -5,10 +5,15 @@ const contacts = require('./data/contacts');
 const vehicles = require('./data/vehicles');
 const products = require('./data/products');
 
-const contactsCount = contacts.length;
-const vehiclesCount = vehicles.length;
-const commentsCount = comments.length;
-const productsCount = products.length;
+const contactsRoutes = require('./routes/contacts')
+const commentsRoutes = require('./routes/comments')
+const productsRoutes = require('./routes/products')
+const vehiclesRoutes = require('./routes/vehicles')
+
+// const contactsCount = contacts.length;
+// const vehiclesCount = vehicles.length;
+// const commentsCount = comments.length;
+// const productsCount = products.length;
 
 
 const app = express();
@@ -16,21 +21,24 @@ const port = process.env.PORT || 4001;
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
+app.use(contactsRoutes);
+app.use(commentsRoutes);
+// app.use(productsRoutes);
+// app.use(vehiclesRoutes);
 
 
 
 
-
-//Basic GET Routes
-app.get('/contacts', (req, res) => {
-    res.json(contacts);
-})
+// //Basic GET Routes
+// app.get('/contacts', (req, res) => {
+//     res.json(contacts);
+// })
 app.get('/vehicles', (req, res) => {
     res.json(vehicles);
 })
-app.get('/comments', (req, res) => {
-    res.json(comments);
-})
+// app.get('/comments', (req, res) => {
+//     res.json(comments);
+// })
 app.get('/products', (req, res) => {
     res.json(products);
 })
@@ -40,14 +48,14 @@ app.get('/products', (req, res) => {
 
 
 //Dynamic GET Routes
-app.get('/contacts/:contactId', (req, res) => {
-    const id = req.params.contactId;
+// app.get('/contacts/:contactId', (req, res) => {
+//     const id = req.params.contactId;
 
-    const foundContact = contacts.find(contact => contact._id === Number(id))
-    console.log(foundContact);
+//     const foundContact = contacts.find(contact => contact._id === Number(id))
+//     console.log(foundContact);
 
-    res.json(foundContact)
-})
+//     res.json(foundContact)
+// })
 
 app.get('/vehicles/:vehicleId', (req, res) => {
     const id = req.params.vehicleId;
@@ -57,13 +65,13 @@ app.get('/vehicles/:vehicleId', (req, res) => {
     res.json(foundVehicle);
 })
 
-app.get('/comments/:commentId', (req, res) => {
-    const id = req.params.commentId;
+// app.get('/comments/:commentId', (req, res) => {
+//     const id = req.params.commentId;
 
-    const foundComment = comments.find(comment => comment._id === Number(id));
-    console.log(foundComment);
-    res.json(foundComment);
-})
+//     const foundComment = comments.find(comment => comment._id === Number(id));
+//     console.log(foundComment);
+//     res.json(foundComment);
+// })
 
 app.get('/products/:productId', (req, res) => {
     const id = req.params.productId;
@@ -78,17 +86,17 @@ app.get('/products/:productId', (req, res) => {
 
 
 //POST Routes
-app.post('/contacts', (req, res) => {
-    console.log(req.body);
-    contacts.push({
-            _id: contactsCount + 1,
-            ...req.body
-            // name: req.body.name,
-            // occupation: req.body.occupation,
-            // avatar: req.body.avatar
-        })
-    res.json(contacts);
-})
+// app.post('/contacts', (req, res) => {
+//     console.log(req.body);
+//     contacts.push({
+//             _id: contactsCount + 1,
+//             ...req.body
+//             // name: req.body.name,
+//             // occupation: req.body.occupation,
+//             // avatar: req.body.avatar
+//         })
+//     res.json(contacts);
+// })
 
 app.post('/vehicles' , (req, res) => {
     const newV = {
@@ -102,17 +110,17 @@ app.post('/vehicles' , (req, res) => {
     res.json(vehicles);
 })
 
-app.post('/comments', (req, res) => {
-    const newComment = {
-        _id: commentsCount + 1,
-        ...req.body
-    }
-    if (!newComment._id || !newComment.body || !newComment.postId) {
-        return res.status(400).json({ msg: `Please include a body and postId.  Make sure entry includes no spaces.`})
-    }
-    comments.push(newComment)
-    res.json(comments);
-})
+// app.post('/comments', (req, res) => {
+//     const newComment = {
+//         _id: commentsCount + 1,
+//         ...req.body
+//     }
+//     if (!newComment._id || !newComment.body || !newComment.postId) {
+//         return res.status(400).json({ msg: `Please include a body and postId.  Make sure entry includes no spaces.`})
+//     }
+//     comments.push(newComment)
+//     res.json(comments);
+// })
 
 app.post('/products', (req, res) => {
     const newProduct = {
