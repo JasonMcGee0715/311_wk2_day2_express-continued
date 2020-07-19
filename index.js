@@ -23,8 +23,8 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(contactsRoutes);
 app.use(commentsRoutes);
-// app.use(productsRoutes);
-// app.use(vehiclesRoutes);
+app.use(productsRoutes);
+app.use(vehiclesRoutes);
 
 
 
@@ -33,15 +33,15 @@ app.use(commentsRoutes);
 // app.get('/contacts', (req, res) => {
 //     res.json(contacts);
 // })
-app.get('/vehicles', (req, res) => {
-    res.json(vehicles);
-})
+// app.get('/vehicles', (req, res) => {
+//     res.json(vehicles);
+// })
 // app.get('/comments', (req, res) => {
 //     res.json(comments);
 // })
-app.get('/products', (req, res) => {
-    res.json(products);
-})
+// app.get('/products', (req, res) => {
+//     res.json(products);
+// })
 
 
 
@@ -57,13 +57,13 @@ app.get('/products', (req, res) => {
 //     res.json(foundContact)
 // })
 
-app.get('/vehicles/:vehicleId', (req, res) => {
-    const id = req.params.vehicleId;
+// app.get('/vehicles/:vehicleId', (req, res) => {
+//     const id = req.params.vehicleId;
 
-    const foundVehicle = vehicles.find(vehicle => vehicle._id === Number(id));
-    console.log(foundVehicle);
-    res.json(foundVehicle);
-})
+//     const foundVehicle = vehicles.find(vehicle => vehicle._id === Number(id));
+//     console.log(foundVehicle);
+//     res.json(foundVehicle);
+// })
 
 // app.get('/comments/:commentId', (req, res) => {
 //     const id = req.params.commentId;
@@ -73,13 +73,13 @@ app.get('/vehicles/:vehicleId', (req, res) => {
 //     res.json(foundComment);
 // })
 
-app.get('/products/:productId', (req, res) => {
-    const id = req.params.productId;
+// app.get('/products/:productId', (req, res) => {
+//     const id = req.params.productId;
 
-    const foundProduct = products.find(product => product._id === Number(id));
-    console.log(foundProduct);
-    res.json(foundProduct);
-})
+//     const foundProduct = products.find(product => product._id === Number(id));
+//     console.log(foundProduct);
+//     res.json(foundProduct);
+// })
 
 
 
@@ -98,17 +98,17 @@ app.get('/products/:productId', (req, res) => {
 //     res.json(contacts);
 // })
 
-app.post('/vehicles' , (req, res) => {
-    const newV = {
-        _id: vehiclesCount + 1,
-        ...req.body
-    }
-    if (!newV._id || !newV.imgUrl || !newV.year || !newV.make || !newV.model || !newV.price || !newV.km || !newV.miles || !newV.fuel || !newV.city || !newV.isNew) {
-        return res.status(400).json({ msg: `Please enter a imgUrl, year, make, model, price, km, miles, fuel, city, isNew. No spaces.`})
-    }
-    vehicles.push(newV);
-    res.json(vehicles);
-})
+// app.post('/vehicles' , (req, res) => {
+//     const newV = {
+//         _id: vehiclesCount + 1,
+//         ...req.body
+//     }
+//     if (!newV._id || !newV.imgUrl || !newV.year || !newV.make || !newV.model || !newV.price || !newV.km || !newV.miles || !newV.fuel || !newV.city || !newV.isNew) {
+//         return res.status(400).json({ msg: `Please enter a imgUrl, year, make, model, price, km, miles, fuel, city, isNew. No spaces.`})
+//     }
+//     vehicles.push(newV);
+//     res.json(vehicles);
+// })
 
 // app.post('/comments', (req, res) => {
 //     const newComment = {
@@ -122,17 +122,17 @@ app.post('/vehicles' , (req, res) => {
 //     res.json(comments);
 // })
 
-app.post('/products', (req, res) => {
-    const newProduct = {
-        _id: productsCount + 1,
-        ...req.body
-    }
-    if (!newProduct._id || !newProduct.name || !newProduct.description || !newProduct.rating || !newProduct.imgUrl || !newProduct.price || !newProduct.category || !newProduct.reviews) {
-        return res.status(400).json({ msg: `Please include a name, description, rating, imgUrl, price, category, and a review`})
-    }
-    products.push(newProduct);
-    res.json(products);
-})
+// app.post('/products', (req, res) => {
+//     const newProduct = {
+//         _id: productsCount + 1,
+//         ...req.body
+//     }
+//     if (!newProduct._id || !newProduct.name || !newProduct.description || !newProduct.rating || !newProduct.imgUrl || !newProduct.price || !newProduct.category || !newProduct.reviews) {
+//         return res.status(400).json({ msg: `Please include a name, description, rating, imgUrl, price, category, and a review`})
+//     }
+//     products.push(newProduct);
+//     res.json(products);
+// })
 
 
 
